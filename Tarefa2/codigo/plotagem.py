@@ -28,7 +28,7 @@ def plotagemPosx():
     plt.xlabel("Tempo (s)")
     plt.ylabel("Posição em X (m)")
     plt.plot(tempo, posx, 'o', label='Dados experimentais', markersize=1)
-    plt.plot(tempo, posxAjustada, 'r-', label=f'Ajuste de curvas - g = {popt[1]**2:.4f} m/s²')
+    plt.plot(tempo, posxAjustada, 'r-', label=f'Ajuste de curvas')
     plt.legend()
     plt.savefig(diretorioImgs + "/posx.png")
     plt.close()
@@ -36,7 +36,7 @@ def plotagemPosx():
 def plotagemPosy():
     tempo = data[:,0]
     posy = data[:,2]
-    popt, pcov = opt.curve_fit(func_seno, tempo, posy, p0=[(np.max(posy)-np.min(posy))/2, 3, 0, 0.01])
+    popt, pcov = opt.curve_fit(func_seno, tempo, posy, p0=[0.013, 2 * np.pi, np.pi/2, 0.021])
     posyAjustada = func_seno(tempo, *popt)
     erro = np.diag(pcov)**0.5
     print(erro[1])    
@@ -45,7 +45,7 @@ def plotagemPosy():
     plt.xlabel("Tempo (s)")
     plt.ylabel("Posição em Y (m)")
     plt.plot(tempo, posy, 'o', label='Dados experimentais', markersize=1)
-    plt.plot(tempo, posyAjustada, 'r-', label=f'Ajuste de curvas - g = {popt[1]**2:.4f} m/s²')
+    plt.plot(tempo, posyAjustada, 'r-', label=f'Ajuste de curvas')
     plt.legend()
     plt.savefig(diretorioImgs + "/posy.png")
     plt.close()
