@@ -72,8 +72,32 @@ def plotagemAng():
     plt.savefig(diretorioImgs + "/ang.png")
     plt.close()
 
+def plotagemEnergia():
+    tempo = data[:,0]
+    posy = data[:,2]
+    posx = data[:,1]
+    vx = np.gradient(posx, tempo)
+    vy = np.gradient(posy, tempo)
+    v = np.sqrt(vx**2 + vy**2)
+    energiaK = 0.5 * 0.0518 * v**2
+    energiaPot = 9.8 * 0.0518 * posy
+    energiaMec = energiaK + energiaPot
+    
+    plt.figure(figsize=(19.2, 10.8))
+    plt.title("Energia em função do tempo")
+    plt.xlabel("Tempo (s)")
+    plt.ylabel("Energia (J)")
+    plt.plot(tempo, energiaPot, 'o', label='Dados experimentais - Energia Potencial', markersize=1)
+    plt.plot(tempo, energiaK, 'o', label='Dados experimentais - Energia Cinética', markersize=1)
+    plt.plot(tempo, energiaMec, 'o', label='Dados experimentais - Energia Mecânica', markersize=1)
+    
+    plt.legend()
+    plt.savefig(diretorioImgs + "/energia.png")
+    plt.close()
+
 if __name__ == "__main__":
     plotagemPosx()
     plotagemPosy()
     plotagemAng()
+    plotagemEnergia()
 
