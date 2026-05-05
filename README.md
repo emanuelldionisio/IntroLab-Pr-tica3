@@ -1,6 +1,3 @@
-# IntroLab-Prática
-
-# IntroLab-Pr-tica3
 # IntroLab – Prática 3: Pêndulo
 
 ## Objetivos

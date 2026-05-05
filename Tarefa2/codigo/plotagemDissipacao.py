@@ -1,14 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.optimize as opt
-from func_seno import func_seno
+from func_seno_amortecido import func_seno_amortecido
 import csv
 
-diretorioImgs = "Tarefa2/imgs/semDissipacao"
-diretorioData = "Tarefa2/data/semDissipacao"
+diretorioImgs = "Tarefa2/imgs/comDissipacao"
+diretorioData = "Tarefa2/data/comDissipacao"
 
 data = []
-with open(diretorioData + '/SemDissipacao.csv', 'r') as file:
+with open(diretorioData + '/ComDissipacao.csv', 'r') as file:
     reader = csv.reader(file)
     data = list(reader)
 #Cabeçalho: [Tempo, Posição em X, Posição em Y, Energia cinética]
@@ -21,14 +21,12 @@ posx = data[:,1]
 posy = data[:,2]
 energiaK = data[:,3] * 0.0518
 y0 = np.min(posy)
-ang = -np.arctan2(posx - 0.01297389, 1.107 - (posy - y0))
-ang0 = ang[0]
 posy = posy - y0
 
 def plotagemPosx():
     
-    popt, pcov = opt.curve_fit(func_seno, tempo, posx, p0=[1, 3, 0, 0])
-    posxAjustada = func_seno(tempo, *popt)
+    popt, pcov = opt.curve_fit(func_seno_amortecido, tempo, posx)
+    posxAjustada = func_seno_amortecido(tempo, *popt)
     erro = np.diag(pcov)**0.5
     with open(diretorioData + "/ajustePosx.txt", 'w') as f:
         f.write(f"Parâmetros do ajuste: {popt}\n")
@@ -44,8 +42,8 @@ def plotagemPosx():
     plt.close()
 
 def plotagemPosy():
-    popt, pcov = opt.curve_fit(func_seno, tempo, posy, p0=[0.013, 2 * np.pi, np.pi/2, 0.021])
-    posyAjustada = func_seno(tempo, *popt)
+    popt, pcov = opt.curve_fit(func_seno_amortecido, tempo, posy)
+    posyAjustada = func_seno_amortecido(tempo, *popt)
     erro = np.diag(pcov)**0.5
     with open(diretorioData + "/ajustePosy.txt", 'w') as f:
         f.write(f"Parâmetros do ajuste: {popt}\n")
@@ -57,23 +55,6 @@ def plotagemPosy():
     plt.plot(tempo, posyAjustada, 'r-', label=f'Ajuste de curvas')
     plt.legend(loc='upper right')
     plt.savefig(diretorioImgs + "/posy.png")
-    plt.close()
-
-def plotagemAng():
-    
-    popt, pcov = opt.curve_fit(func_seno, tempo, ang, p0=[(np.max(ang)-np.min(ang))/2, 3, 0, 0])
-    angAjustada = func_seno(tempo, *popt)
-    erro = np.diag(pcov)**0.5
-    with open(diretorioData + "/ajusteAng.txt", 'w') as f:
-        f.write(f"Parâmetros do ajuste: {popt}\n")
-        f.write(f"Erro dos parâmetros: {erro}\n")
-    plt.title("Ângulo em função do tempo")
-    plt.xlabel("Tempo (s)")
-    plt.ylabel("Ângulo (rad)")
-    plt.plot(tempo, ang, 'o', label='Dados experimentais', markersize=1)
-    plt.plot(tempo, angAjustada, 'r-', label=f'Ajuste de curvas - g = {1.107*popt[1]**2:.4f} m/s²')
-    plt.legend(loc='upper right')
-    plt.savefig(diretorioImgs + "/ang.png")
     plt.close()
 
 def plotagemEnergia():
@@ -99,6 +80,5 @@ def plotagemEnergia():
 if __name__ == "__main__":
     plotagemPosx()
     plotagemPosy()
-    plotagemAng()
     plotagemEnergia()
 
