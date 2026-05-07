@@ -1,2 +1,2 @@
-Parâmetros do ajuste: [1.58838517e+00 7.94192590e-01 4.72423089e-04]
-Erro dos parâmetros: [inf inf inf]
+Parâmetros do ajuste: [1.0e+00 5.0e-01 6.5e+00 1.0e-04 0.0e+00]
+Erro dos parâmetros: [inf inf inf inf inf]

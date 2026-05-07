@@ -25,7 +25,7 @@ posy = posy - y0
 
 def plotagemPosx():
     
-    popt, pcov = opt.curve_fit(func_seno_amortecido, tempo, posx)
+    popt, pcov = opt.curve_fit(func_seno_amortecido, tempo, posx, p0=[1, 1, 3, 0.1, 0.1])
     posxAjustada = func_seno_amortecido(tempo, *popt)
     erro = np.diag(pcov)**0.5
     with open(diretorioData + "/ajustePosx.txt", 'w') as f:
@@ -42,7 +42,7 @@ def plotagemPosx():
     plt.close()
 
 def plotagemPosy():
-    popt, pcov = opt.curve_fit(func_seno_amortecido, tempo, posy)
+    popt, pcov = opt.curve_fit(func_seno_amortecido, tempo, posy, p0=[1, .5, 6.5, 0.0001, 0])
     posyAjustada = func_seno_amortecido(tempo, *popt)
     erro = np.diag(pcov)**0.5
     with open(diretorioData + "/ajustePosy.txt", 'w') as f:
