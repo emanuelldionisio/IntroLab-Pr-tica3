@@ -20,8 +20,8 @@ data = np.array(data[1:], dtype=float)
 tempo = data[:,0]
 posx = data[:,1]
 posy = data[:,2]
-energiaK = data[:,3] * 0.0518
-y0 = np.min(posy)
+energiaK = data[:,3]
+y0 = posy[0]
 posy = posy - y0
 ang = -np.arctan2(posx, 1.107 - (posy - y0))
 ang0 = ang[0]
@@ -77,7 +77,7 @@ def plotagemEnergia():
     m = 0.0518
     
     
-    energiaPot = 9.8 * (posy) * m
+    energiaPot = 9.8 * (posy)
     energiaMec = energiaK + energiaPot
     
     plt.figure(figsize=(10, 6))
@@ -87,6 +87,7 @@ def plotagemEnergia():
     plt.plot(tempo, energiaPot, 'o', label='Dados experimentais - Energia Potencial', markersize=1)
     plt.plot(tempo, energiaK, 'o', label='Dados experimentais - Energia Cinética', markersize=1)
     plt.plot(tempo, energiaMec, 'o', label='Dados experimentais - Energia Mecânica', markersize=1)
+    # plt.ylim(0, 0.0001)
     
     plt.legend(loc='upper right')
     plt.savefig(diretorioImgs + "/energia.png")

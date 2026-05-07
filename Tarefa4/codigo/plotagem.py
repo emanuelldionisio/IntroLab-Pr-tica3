@@ -33,21 +33,10 @@ with open(diretorioData + "/ajusteAcel.txt", 'w') as f:
     f.write(f"Erro dos parâmetros: {erro}\n")
     f.write(f"Gravidade obtida: {(popt[1]/2) ** 2}")
 
-popt, pcov = opt.curve_fit(func_seno, tempo, acel_x, p0=[0.85, 3.14, 1, 0.75])
-acel_x_ajustada = func_seno(tempo, *popt)
-erro = np.diag(pcov)**0.5
-
-with open(diretorioData + "/ajusteAcelX.txt", 'w') as f:
-    f.write(f"Formato: A * sin(Bt + C) + D\n")
-    f.write(f"Parâmetros do ajuste: {popt}\n")
-    f.write(f"Erro dos parâmetros: {erro}\n")
-    f.write(f"Gravidade obtida: {(popt[1]) ** 2}")
-
 plt.title("Aceleração em cada eixo")
 plt.xlabel("Tempo (s)")
 plt.ylabel("Aceleração (m/s²)")
 plt.plot(tempo, acel_x, 'o', label='Eixo X', markersize=.5)
-plt.plot(tempo, acel_x_ajustada, '--', label='Eixo X', linewidth=1)
 plt.plot(tempo, acel_y, 'o', label='Eixo Y', markersize=.5)
 plt.plot(tempo, acel_z, 'o', label='Eixo Z', markersize=.5)
 plt.legend(loc='upper right')
