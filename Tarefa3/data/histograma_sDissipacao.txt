@@ -1,0 +1,4 @@
+Desvio Padrão: 49807.7249 µs
+Média: 2007307.4000 µs
+Gravidade: 9.7979 m/s²
+Incerteza do Tempo: 11137.3459 µs
