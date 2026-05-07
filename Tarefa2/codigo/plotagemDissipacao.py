@@ -4,6 +4,7 @@ import scipy.optimize as opt
 from func_seno_amortecido import func_seno_amortecido
 from func_seno import func_seno
 import csv
+import pandas as pd
 
 diretorioImgs = "Tarefa2/imgs/comDissipacao"
 diretorioData = "Tarefa2/data/comDissipacao"
@@ -20,10 +21,12 @@ data = np.array(data[1:], dtype=float)
 tempo = data[:,0]
 posx = data[:,1]
 posy = data[:,2]
-energiaK = data[:,3] * 0.0518
+posy = pd.DataFrame(posy).rolling(window=21).mean()
+posy = posy.bfill().to_numpy().flatten()
 y0 = np.min(posy)
 posy = posy - y0
-ang = -np.arctan2(posx, 1.107 - (posy - y0))
+energiaK = data[:,3] * 0.0518
+ang = -np.arctan2(posx, 1.107 - (posy))
 ang0 = ang[0]
 
 def plotagemAng():
@@ -64,10 +67,17 @@ def plotagemPosx():
     plt.close()
 
 def plotagemPosy():
+    popt, pcov = opt.curve_fit(func_seno_amortecido, tempo, posy, p0=[0.11847116,5.6,0.0004,-1.48361739,0.0001])
+    posyAjustada = func_seno_amortecido(tempo, *popt)
+    erro = np.diag(pcov)**0.5
+    with open(diretorioData + "/ajustePosy.txt", 'w') as f:
+        f.write(f"Parâmetros do ajuste: {popt}\n")
+        f.write(f"Erro dos parâmetros: {erro}\n")
     plt.title("Posição em Y em função do tempo")
     plt.xlabel("Tempo (s)")
     plt.ylabel("Posição em Y (m)")
     plt.plot(tempo, posy, 'o', label='Dados experimentais', markersize=1)
+    plt.plot(tempo, posyAjustada, '--', color='red', label=f'Ajuste de curvas')
     plt.legend(loc='upper right')
     plt.savefig(diretorioImgs + "/posy.png")
     plt.close()
