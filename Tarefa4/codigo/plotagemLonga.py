@@ -4,12 +4,14 @@ import scipy.optimize as opt
 import numpy as np
 from func_seno import func_seno
 
-diretorioImgs = "Tarefa4/imgs/oscilacoesCurtas"
-diretorioData = "Tarefa4/data/oscilacoesCurtas"
+diretorioImgs = "Tarefa4/imgs/oscilacoesLongas"
+diretorioData = "Tarefa4/data/oscilacoesLongas"
 
 df = pd.read_csv(diretorioData + '/dados.csv')
 rolling_window = 15
 
+df['t'] = df['t']
+df['t'] = df['t'] - np.min(df['t'])
 df['abs_movel'] = df['abs'].rolling(window=rolling_window).mean()
 df['x_movel'] = df['x'].rolling(window=rolling_window).mean()
 df['y_movel'] = df['y'].rolling(window=rolling_window).mean()
