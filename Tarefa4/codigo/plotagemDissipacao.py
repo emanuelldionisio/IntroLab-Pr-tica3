@@ -59,7 +59,7 @@ plt.close()
 
 plt.title("Aceleração total")
 plt.xlabel("Tempo (s)")
-plt.ylabel("Aceleração (rad/s²)")
+plt.ylabel("Aceleração (m/s²)")
 plt.plot(tempo, ax, 'o', label='Dados brutos', markersize=.5)
 plt.plot(tempo, a_ajustada, '--', label='Ajuste senoidal', linewidth='1')
 plt.legend(loc='upper right')
