@@ -1,4 +1,4 @@
 Formato: A * sin(Bt + C) + D
-Parâmetros do ajuste: [0.65741057 6.24413584 1.2903303  1.05692793]
-Erro dos parâmetros: [0.00341629 0.00179512 0.01038812 0.00240895]
-Gravidade obtida: 9.747308092887746
+Parâmetros do ajuste: [ 1.62007285  3.11831884 -1.59473762 -0.00463993]
+Erro dos parâmetros: [0.00280464 0.00059779 0.00346253 0.00199184]
+Gravidade obtida: 9.723912395718003

@@ -18,8 +18,8 @@
 ```
 
 ## Tarefas
-- [ ] Fazer histogramas do dos dados obtidos via cronômetro (Tarefa 1)
+- [x] Fazer histogramas do dos dados obtidos via cronômetro (Tarefa 1)
 - [ ] Fazer os gráficos dos dados obtidos via Tracker (Tarefa 2)
 - [x] Fazer histogramas do dos dados obtidos via Laser (Tarefa 3)
-- [ ] Fazer os gráficos dos dados obtidos via PhyPhox (Tarefa 4)
+- [x] Fazer os gráficos dos dados obtidos via PhyPhox (Tarefa 4)
 - [x] Fazer os gráficos dos dados obtidos via PhyPhox em grande amplitude (Desafio extra)
